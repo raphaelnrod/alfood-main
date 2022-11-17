@@ -1,14 +1,21 @@
-import { AxiosResponse } from "axios";
 import instance from '../axiosConfig';
-import { IPaginacao } from "../interfaces/IPaginacao";
 
 export default class HttpService {
 
-    protected get<T>(url: string) {
-        return instance.get<IPaginacao<T>>(url);
+    protected get<T>(url: string,) {
+        return instance.get<T>(url);
     }
 
     protected post<T>(url: string, data?: any) {
-        return instance.post<IPaginacao<T>>(url, data);
+        return instance.post<T>(url, data);
     }
+
+    protected delete(url: string, id: number){
+        return instance.delete(`${url}${id}/`);
+    }
+
+    protected patch<T>(url: string, id: number, data?: any) {
+        return instance.patch<T>(`${url}${id}/`, data);
+    }
+    
 }
