@@ -5,6 +5,7 @@ import Home from "./paginas/Home";
 import VitrineRestaurantes from "./paginas/VitrineRestaurantes";
 import { ToastContainer } from "react-toastify";
 import PaginaBaseAdmin from './paginas/Admin/PaginaBaseAdmin/index';
+import AdmPratos from "paginas/Admin/Pratos/AdmPratos";
 
 function App() {
   return (
@@ -16,6 +17,9 @@ function App() {
           <Route path="restaurantes" element={<AdmRestaurantes />} />
           <Route path="restaurantes/novo" element={<FormRestaurante />} />
           <Route path="restaurantes/:id" element={<FormRestaurante />} />
+          <Route path="pratos" element={<AdmPratos />} />
+          <Route path="pratos/novo" element={<FormRestaurante />} />
+          <Route path="pratos/:id" element={<FormRestaurante />} />
         </Route>
       </Routes>
       <ToastContainer />

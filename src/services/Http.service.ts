@@ -6,16 +6,20 @@ export default class HttpService {
         return instance.get<T>(url);
     }
 
-    protected post<T>(url: string, data?: any) {
+    protected post<T>(url: string, data?: unknown) {
         return instance.post<T>(url, data);
     }
 
-    protected delete(url: string, id: number){
+    protected delete(url: string, id: number) {
         return instance.delete(`${url}${id}/`);
     }
 
-    protected patch<T>(url: string, id: number, data?: any) {
+    protected patch<T>(url: string, id: number, data?: unknown) {
         return instance.patch<T>(`${url}${id}/`, data);
     }
-    
+
+    protected put<T>(url: string, id: number, data?: unknown) {
+        return instance.put<T>(`${url}${id}/`, data)
+    }
+
 }

@@ -1,6 +1,7 @@
 import HttpService from "./Http.service";
 import IRestaurante from "../interfaces/IRestaurante";
 import { IPaginacao } from "../interfaces/IPaginacao";
+import IPrato from "interfaces/IPrato";
 
 
 export default class RestauranteService extends HttpService {
@@ -17,6 +18,7 @@ export default class RestauranteService extends HttpService {
         const postRequest = super.post;
         const deleteRequest = super.delete;
         const patchRequest = super.patch;
+        const putRequest = super.put;
 
         /**
          * Retorna todos os restaurantes da base de dados.
@@ -41,8 +43,12 @@ export default class RestauranteService extends HttpService {
             return patchRequest<IRestaurante>(`/v2/restaurantes/`, id, restaurante);
         }
 
+        function addPrato(prato: IPrato){
+            return putRequest(`/v2/pratos`, prato.id, prato);
+        }
+
         return {
-            getAll, saveNew, deleteRestaurante, findById, editName
+            getAll, saveNew, deleteRestaurante, findById, editName, addPrato
         }
     }
 

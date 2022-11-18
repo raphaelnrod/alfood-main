@@ -1,41 +1,40 @@
-import { useEffect, useState } from "react";
-import IRestaurante from "../../../interfaces/IRestaurante";
 import {
-  Table,
-  TableBody,
-  TableCell,
   TableContainer,
+  Table,
   TableHead,
   TableRow,
-  Button,
+  TableCell,
+  TableBody,
   Icon,
+  Button,
 } from "@mui/material";
-import RestauranteService from "../../../services/Restaurante.service";
-import styles from "./AdmRestaurante.module.scss";
+import styles from "./AdmPratos.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import showToast from "componentes/Toast/toast";
 import { AxiosError } from "axios";
 import SimpleBackdrop from "componentes/Backdrop/backdrop";
+import PratoService from "services/Pratos.service";
+import React from "react";
+import IPrato from "interfaces/IPrato";
 
-
-export default function AdmRestaurantes() {
-  let service = new RestauranteService();
-  const [restaurantes, setRestaurantes] = useState<IRestaurante[]>([]);
-  const [active, setActive] = useState(false);
+export default function AdmPratos() {
+  let service = new PratoService();
+  const [pratos, setPratos] = React.useState<IPrato[]>([]);
+  const [active, setActive] = React.useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  React.useEffect(() => {
     //obter restaurantes
-    getRestaurantes();
+    getPratos();
   }, []);
 
-  function getRestaurantes() {
+  function getPratos() {
     setActive(true);
     service
       .admin()
       .getAll()
       .then((data) => {
-        setRestaurantes(data.data);
+        setPratos(data.data);
         setActive(false);
       })
       .catch((err) => {
@@ -43,13 +42,13 @@ export default function AdmRestaurantes() {
       });
   }
 
-  function excluirRestaurante(id: number) {
+  function excluirPrato(id: number) {
     service
       .admin()
-      .deleteRestaurante(id)
+      .deletePrato(id)
       .then((data) => {
-        showToast("Restaurante removido com sucesso", "success");
-        getRestaurantes();
+        showToast("Prato removido com sucesso", "success");
+        getPratos();
       })
       .catch((err: AxiosError) => {
         showToast("Erro: " + err.response, "error");
@@ -65,19 +64,23 @@ export default function AdmRestaurantes() {
             <TableRow>
               <TableCell>ID</TableCell>
               <TableCell>Nome</TableCell>
+              <TableCell>TAG</TableCell>
+              <TableCell>Descricao</TableCell>
               <TableCell>Ações</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {restaurantes?.map((item) => (
+            {pratos?.map((item) => (
               <TableRow key={item.id}>
                 <TableCell>{item.id}</TableCell>
                 <TableCell>{item.nome}</TableCell>
+                <TableCell>{item.tag}</TableCell>
+                <TableCell>{item.descricao}</TableCell>
                 <TableCell>
-                  <Link to={`/admin/restaurantes/${item.id}`}>
+                  <Link to={`/admin/pratos/${item.id}`}>
                     <Icon className={styles.table_icon}>edit</Icon>
                   </Link>
-                  <Button onClick={() => excluirRestaurante(item.id)}>
+                  <Button onClick={() => excluirPrato(item.id)}>
                     <Icon className={styles.table_icon}>delete</Icon>
                   </Button>
                 </TableCell>
