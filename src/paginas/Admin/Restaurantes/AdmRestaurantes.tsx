@@ -15,10 +15,12 @@ import styles from "./AdmRestaurante.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import showToast from "componentes/Toast/toast";
 import { AxiosError } from "axios";
+import SimpleBackdrop from "componentes/Backdrop/backdrop";
 
 export default function AdmRestaurantes() {
   let service = new RestauranteService();
   const [restaurantes, setRestaurantes] = useState<IRestaurante[]>([]);
+  const [active, setActive] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,20 +29,17 @@ export default function AdmRestaurantes() {
   }, []);
 
   function getRestaurantes() {
+    setActive(true);
     service
       .admin()
       .getAll()
       .then((data) => {
         setRestaurantes(data.data);
+        setActive(false);
       })
       .catch((err) => {
         console.error(err);
       });
-  }
-
-  function editarRestaurante(id: number) {
-    console.log('faz nada ainda');
-    
   }
 
   function excluirRestaurante(id: number) {
@@ -58,6 +57,7 @@ export default function AdmRestaurantes() {
 
   return (
     <>
+      <SimpleBackdrop active={active} />
       <TableContainer className={styles.container}>
         <Table>
           <TableHead>
@@ -86,6 +86,9 @@ export default function AdmRestaurantes() {
         </Table>
       </TableContainer>
       <div className={styles.button}>
+        <Button variant="contained" onClick={() => navigate("/")}>
+          Voltar HOME
+        </Button>
         <Button variant="outlined" onClick={() => navigate("novo")}>
           Novo
         </Button>

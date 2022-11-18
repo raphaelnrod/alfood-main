@@ -1,4 +1,9 @@
-import { TextField, Button } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Typography,
+  Box,
+} from "@mui/material";
 import styles from "./FormRestaurante.module.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -72,27 +77,28 @@ export default function FormRestaurante() {
   }
 
   return (
-    <>
-      <form onSubmit={onSubmit} className={styles.container}>
-        <h3 className={styles.container__title}>{nameTitle}</h3>
-        <div className={styles.container__fields}>
-          <TextField
-            value={nomeRestaurante}
-            onChange={(event) => setNomeRestaurante(event.target.value)}
-            id="standard-basic"
-            label="Nome Restaurante"
-            variant="standard"
-          />
-        </div>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        padding: "32px",
+      }}
+    >
+      <Typography component="h1" variant="h6">
+        {nameTitle}
+      </Typography>
+      <Box component="form" onSubmit={onSubmit}>
+        <TextField
+          value={nomeRestaurante}
+          onChange={(event) => setNomeRestaurante(event.target.value)}
+          id="standard-basic"
+          label="Nome Restaurante"
+          variant="standard"
+          fullWidth
+          required
+        />
         <div className={styles.container__buttons}>
-          <Button
-            className={styles.container__buttons__btn}
-            variant="outlined"
-            onClick={() => navigate(-1)}
-            color="error"
-          >
-            Voltar
-          </Button>
           <Button
             className={styles.container__buttons__btn}
             onClick={limparForm}
@@ -104,10 +110,10 @@ export default function FormRestaurante() {
             variant="contained"
             type="submit"
           >
-            {params.id ? 'Editar' : 'Adicionar'}
+            {params.id ? "Editar" : "Adicionar"}
           </Button>
         </div>
-      </form>
-    </>
+      </Box>
+    </Box>
   );
 }
