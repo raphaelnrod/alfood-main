@@ -1,8 +1,9 @@
+import { AxiosRequestConfig } from 'axios';
 import instance from '../axiosConfig';
 
 export default class HttpService {
 
-    protected get<T>(url: string,) {
+    protected get<T>(url: string) {
         return instance.get<T>(url);
     }
 
@@ -19,7 +20,11 @@ export default class HttpService {
     }
 
     protected put<T>(url: string, id: number, data?: unknown) {
-        return instance.put<T>(`${url}${id}/`, data)
+        return instance.put<T>(`${url}${id}/`, data);
+    }
+
+    public customRequest(config: AxiosRequestConfig<any>) {
+        return instance.request(config);
     }
 
 }

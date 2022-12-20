@@ -42,7 +42,7 @@ export default function AdmPratos() {
       });
   }
 
-  function excluirPrato(id: number) {
+  function excluirPrato(id: number = 0) {
     service
       .admin()
       .deletePrato(id)
@@ -62,20 +62,24 @@ export default function AdmPratos() {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>ID</TableCell>
               <TableCell>Nome</TableCell>
               <TableCell>TAG</TableCell>
-              <TableCell>Descricao</TableCell>
+              <TableCell>Imagem</TableCell>
               <TableCell>Ações</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {pratos?.map((item) => (
               <TableRow key={item.id}>
-                <TableCell>{item.id}</TableCell>
                 <TableCell>{item.nome}</TableCell>
                 <TableCell>{item.tag}</TableCell>
-                <TableCell>{item.descricao}</TableCell>
+                <TableCell>
+                  [
+                  <a href={item.imagem} target="_blank">
+                    Ver Imagem
+                  </a>
+                  ]
+                </TableCell>
                 <TableCell>
                   <Link to={`/admin/pratos/${item.id}`}>
                     <Icon className={styles.table_icon}>edit</Icon>

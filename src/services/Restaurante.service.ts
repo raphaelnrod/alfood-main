@@ -44,6 +44,7 @@ export default class RestauranteService extends HttpService {
         }
 
         function addPrato(prato: IPrato){
+            if(!prato.id) throw new Error("Prato sem id válido.");
             return putRequest(`/v2/pratos`, prato.id, prato);
         }
 

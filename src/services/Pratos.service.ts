@@ -19,8 +19,8 @@ export default class PratoService extends HttpService {
             return getRequest<IPrato[]>('/v2/pratos/');
         }
 
-        function saveNew(nome: string) {
-            return postRequest<IPrato>('/v2/pratos/', {nome});
+        function saveNew(prato: IPrato) {
+            return postRequest<IPrato>('/v2/pratos/', prato);
         }
 
         function deletePrato(id: number){
@@ -31,12 +31,12 @@ export default class PratoService extends HttpService {
             return getRequest<IPrato>(`/v2/pratos/${id}/`);
         }
 
-        function editName(id: number, prato: {nome:string}) {
+        function edit(id: number, prato: IPrato) {
             return patchRequest<IPrato>(`/v2/pratos/`, id, prato);
         }
 
         return {
-            getAll, saveNew, deletePrato, findById, editName
+            getAll, saveNew, deletePrato, findById, edit
         }
     }
 

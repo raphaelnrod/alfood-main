@@ -1,8 +1,8 @@
 export default interface IPrato {
-  id: number
+  id?: number
   nome: string
   tag: string
-  imagem: string
+  imagem?: string
   descricao: string
   restaurante: number
 }
